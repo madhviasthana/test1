@@ -3,6 +3,7 @@ package com.example.Invoice.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 
 @Entity
@@ -34,7 +35,10 @@ public class Invoice implements Serializable {
     private Integer generatedDate;
     @Column(name="remark")
     private String remark;
-
+    @Column(name="pdfInvoiceLocation")
+    private String pdfInvoiceLocation;
+@Transient
+    private File pdfInvoice;
     public Invoice(int invoiceNo, String invoiceDate, int travelReqNo, String guestName, String roomType,
                    String stayDuration, float tcsCost, String invoiceStatus, int swonNumber,
                    int bookingId, Integer generatedDate, String remark) {

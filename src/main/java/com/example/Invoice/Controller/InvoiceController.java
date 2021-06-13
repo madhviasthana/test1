@@ -1,5 +1,5 @@
 package com.example.Invoice.Controller;
-
+import com.example.Invoice.Repository.MessageRepository;
 import com.example.Invoice.Model.City;
 import com.example.Invoice.Model.Hotel;
 import com.example.Invoice.Model.Invoice;
@@ -12,8 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -29,11 +31,16 @@ public class InvoiceController {
 
     private final MessageService messageService;
 
+    private final MessageRepository messageRepository;
 
-    public InvoiceController(InvoiceService invoiceService, CityService cityService, MessageService messageService) {
+
+
+
+    public InvoiceController(InvoiceService invoiceService, CityService cityService, MessageService messageService, MessageRepository messageRepository) {
         this.invoiceService = invoiceService;
         this.cityService = cityService;
         this.messageService = messageService;
+        this.messageRepository = messageRepository;
     }
 
 
@@ -84,6 +91,33 @@ public class InvoiceController {
 
     }
 
+
+
+    @RequestMapping( value="/message",method=RequestMethod.POST)
+    @ResponseBody
+    Message showMessage(@RequestBody Message  message) {
+        System.out.println(message);
+        message.setDateTime();
+
+        if (message.isUploadDocument()){
+        String uploadFileLink = messageService.copyFiles();
+        message.setDocumentFile(uploadFileLink);}
+
+        messageService.save(message);
+        return message;
+    }
+
+
+
+
+
+
+//    @MessageMappinng("send")
+//    fun hello(p: String) = this.messages.save(Message(body = p, sentAt = Instant.now())).log().then()
+//    @MessageMapping("messages")
+//    fun messageStream(): Flux<Message> = this.messages.getMessagesBy().log()
+}
+
 //    @GetMapping(value = "/isApprover")
 //    public ResponseEntity<List<Message>> getAllMessage() {
 //        List<Message> messages = messageService.getallMessage(Boolean isApprover,String clickingValue );
@@ -108,8 +142,8 @@ public class InvoiceController {
 //    }
 
 
-
-}
+//
+//}
 
 
 

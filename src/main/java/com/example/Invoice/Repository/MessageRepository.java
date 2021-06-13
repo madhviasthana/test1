@@ -1,5 +1,4 @@
 package com.example.Invoice.Repository;
-
 import com.example.Invoice.Model.Invoice;
 import com.example.Invoice.Model.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +9,7 @@ import java.util.List;
 
 
 @Repository
-public interface MessageRepository extends JpaRepository<Invoice, Integer> {
+public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     @Query(value = "SELECT * FROM (" +
             "    SELECT * FROM message_master" +
@@ -18,6 +17,8 @@ public interface MessageRepository extends JpaRepository<Invoice, Integer> {
             ") AS sub" +
             "GROUP BY invoiceNumber", nativeQuery = true)
     List<Message> getallMessage(Boolean isApprover, String clickingValue);
+
+
 
 
 //    @Query(value = "select i.invoice_number,i.booking_id,i.guest_name,i.invoice_date,i.invoice_status," +
