@@ -44,7 +44,6 @@ public class MessageService {
         FileSystemUtils.copyRecursively(src, dest);
         src.delete();
          return   dest.getAbsolutePath();
-
     }
         catch(IOException ie) {
             ie.printStackTrace();
