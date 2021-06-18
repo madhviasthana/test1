@@ -12,7 +12,7 @@ import java.util.List;
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     @Query(value = "select i.invoice_number,i.booking_id,i.guest_name,i.invoice_date,i.invoice_status," +
-            "i.room_type,i.stay_duration,i.swan_number,i.tcs_cost,i.travel_request_number,i.generated_date,i.remark " +
+            "i.room_type,i.stay_duration,i.swan_number,i.tcs_cost,i.travel_request_number,i.generated_date,i.remark,i.new_document_file,i.old_document_file " +
             "from invoice_master as i left join city_tbl as c on i.invoice_number=c.invoice_id" +
             " join hotel_tbl as h on i.invoice_number=h.invoice_id where lower( c.city_name)=lower(:cityName)" +
             " and lower(h.hotel_name)=lower(:hotelName)", nativeQuery = true)
@@ -20,7 +20,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
 
     @Query(value = "select i.invoice_number,i.booking_id,i.guest_name,i.invoice_date,i.invoice_status," +
-            "i.room_type,i.stay_duration,i.swan_number,i.tcs_cost,i.travel_request_number,i.generated_date,i.remark " +
+            "i.room_type,i.stay_duration,i.swan_number,i.tcs_cost,i.travel_request_number,i.generated_date,i.remark,i.new_document_file,i.old_document_file " +
             "from invoice_master as i where i.generated_date >=:startDate and i.generated_date<=:endDate",
             nativeQuery = true)
     List<Invoice> findByStartDateAndEndDate(int startDate, int endDate);

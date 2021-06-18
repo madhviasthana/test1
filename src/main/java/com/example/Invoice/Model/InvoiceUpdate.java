@@ -5,11 +5,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "INVOICE_MASTER")
-public class Invoice implements Serializable {
+@Table(name = "INVOICE_UPDATED")
+public class InvoiceUpdate implements Serializable {
     @Column(nullable = false, updatable = false, name = "Invoice_Number")
     @Id
     private int invoiceNo;
@@ -41,7 +49,7 @@ public class Invoice implements Serializable {
     private String new_documentFile;
 
 
-    public Invoice(int invoiceNo, String invoiceDate, int travelReqNo, String guestName, String roomType,
+    public InvoiceUpdate(int invoiceNo, String invoiceDate, int travelReqNo, String guestName, String roomType,
                    String stayDuration, float tcsCost, String invoiceStatus, int swonNumber,
                    int bookingId, Integer generatedDate, String remark) {
         this.invoiceNo = invoiceNo;
@@ -58,7 +66,7 @@ public class Invoice implements Serializable {
         this.remark = remark;
     }
 
-    public Invoice()
+    public InvoiceUpdate()
     {
 
     }

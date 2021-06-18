@@ -107,43 +107,47 @@ public class InvoiceController {
         return message;
     }
 
+//Mapping 2 for message restart kro
+//@CrossOrigin(origins = "http://localhost:4200")
+
+    @RequestMapping( value="/allMessage",method= RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    ResponseEntity<List<Message> > showAllMessage(@RequestBody Message  msg) {
+        System.out.println("INVOICE NUMBER RESponse body");
+
+        System.out.println(msg);
+       messageService.getallMessage( msg.getInvoiceNumber());
+        List<Message> messages = messageService.getallMessage( msg.getInvoiceNumber());
+        return new ResponseEntity<List<Message>>(messages, HttpStatus.OK);
+
+    }
+
+    @RequestMapping( value="/acceptdoc",method= RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    ResponseEntity<String> approveDocumentFile(@RequestBody Message  mes) {
+
+
+         messageService.approveDocument(mes.getMessageId());
+        return new ResponseEntity<String>("Successfull", HttpStatus.OK);
+
+
+    }
 
 
 
 
-
-//    @MessageMappinng("send")
-//    fun hello(p: String) = this.messages.save(Message(body = p, sentAt = Instant.now())).log().then()
-//    @MessageMapping("messages")
-//    fun messageStream(): Flux<Message> = this.messages.getMessagesBy().log()
-}
-
-//    @GetMapping(value = "/isApprover")
-//    public ResponseEntity<List<Message>> getAllMessage() {
-//        List<Message> messages = messageService.getallMessage(Boolean isApprover,String clickingValue );
+//    @GetMapping("/allMessage")
+//    public ResponseEntity<List<Message>> getallMessage(@PathVariable(value = "isApprover") boolean isApprover, @PathVariable(value = "invoiceNumber")String invoiceNumber) {
+//        List<Message> messages = messageService.getallMessage(isApprover, invoiceNumber);
 //        return new ResponseEntity<>(messages, HttpStatus.OK);
 //    }
 
-    //public HttpResponseMessage Get()
-//{
-//    List<Employee> employeeList = new List<Employee>();
-//    using (DBModel dc = new DBModel())
-//    {
-//        employeeList = dc.Employees.OrderBy(a => a.Name).ToList();
-//        HttpResponseMessage response;
-//        response = Request.CreateResponse(HttpStatusCode.OK, employeeList);
-//        return response;
-//    }
-//}
-//    @PostMapping("/isApprover")
-//    public boolean buyBook(@RequestParam CreditCard creditCard, @RequestParam
-//            ShippingAddress shippingAddress) {
-//        return true;
-//    }
 
 
-//
-//}
+
+    }
+
+
 
 
 

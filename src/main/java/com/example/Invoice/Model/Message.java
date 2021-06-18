@@ -3,6 +3,7 @@ package com.example.Invoice.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenerationTime;
@@ -18,11 +19,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "MESSAGE_MASTER")
+@Table(name = "MESSAGE_MASTER", schema="public")
 public class Message implements Serializable {
 
     @Transient
     private boolean uploadDocument;
+
 
 
     @Column(name="messageId")
@@ -35,9 +37,15 @@ public class Message implements Serializable {
 
     @Column(name = "dateTime")
     private LocalDateTime dateTime;
+
     @Column(name = "isApprover")
     @JsonProperty("isApprover")
     private boolean isApprover;
+
+    @Column(name = "isApproved")
+    @JsonProperty("isApproved")
+    private boolean isApproved;
+
     @Column(name = "chatMessage")
     private String chatMessage;
     @Column(name = "documentFile")
@@ -50,10 +58,19 @@ public class Message implements Serializable {
         this.chatMessage = chatMessage;
         this.documentFile=documentFile;
         this.uploadDocument =uploadDocument;
+
     }
 
     public Message() {
 
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public int getMessageId() {
+        return messageId;
     }
 
     public void setDocumentFile(String documentFile) {
@@ -90,12 +107,8 @@ public class Message implements Serializable {
 
     public void setDateTime() {
 
-        this.dateTime = LocalDateTime.now();
-    }
+        this.dateTime = LocalDateTime.now();}
 
-    public void setApprover(boolean approver) {
-        isApprover = approver;
-    }
 
     public void setChatMessage(String chatMessage) {
         this.chatMessage = chatMessage;

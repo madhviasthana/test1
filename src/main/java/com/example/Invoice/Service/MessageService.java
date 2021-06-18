@@ -22,8 +22,14 @@ public class MessageService {
     private MessageRepository messageRepository;
 
 
-    public List<Message> getallMessage(Boolean isApprover, String clickingValue) {
-        return messageRepository.getallMessage(isApprover,clickingValue);
+
+    public List<Message> getallMessage(int invoicenum) {
+        return messageRepository.getallMessage(invoicenum);
+    }
+
+
+    public void approveDocument(int msgId) {
+        messageRepository.approveDocument(msgId);
     }
 
     public void save(Message message){
